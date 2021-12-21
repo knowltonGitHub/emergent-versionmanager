@@ -32,3 +32,16 @@ textarea.tareastyle {
 .contentcol1{
   width: 25%;
 }
+
+.hideit{
+  display: none;
+}
+
+.showit{
+  position:absolute;
+  display: block;
+  left:600px;
+  top:100px;
+  color:red;
+  font-size:24px;
+}
