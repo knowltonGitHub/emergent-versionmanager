@@ -1,11 +1,8 @@
 $(document).ready(function () {
-  $(".tareastyle").keyup(handlekeyup);
+  $(".tareastyle").keyup(function(){
+    displayMatchingVersions();
+  });
 });
-
-function handlekeyup(event) {
-  console.log(event);
-  displayMatchingVersions();
-}
 
 function countDots(str) {
   return str.split(".").length - 1;
@@ -20,40 +17,37 @@ function versionArray() {
 }
 
 function versionStructureIsValid(str) {
-  let dots = countDots(str);
 
+ // $('error').hide();
+
+  let dots = countDots(str);
+console.log(dots);
+console.log(str);
   let isValid = false;
 
   let inputLength = str.length;
 
   const parsed = parseInt(str, 10);
 
-  if (dots === 0) {
-    isValid = true;
+  isValid = is_numeric(str);
+
+  if(!isValid){
+    $('.error').removeClass('hideit');
+    $('.error').addClass('showit');
   }
-  if (isNaN(parsed)) {
-    isValid = false;
-  }
-  if (dots === 1) {
-    isValid = true;
-  }
-  if (dots === 2) {
-    isValid = true;
-  }
-  if (str.includes("..")) {
-    isValid = false;
-  }
-  if (str.includes("...")) {
-    isValid = false;
-  }
-  if (str.length === 0) {
-    isValid = false;
-  }
-  if (str[inputLength - 1] === ".") {
-    isValid = false;
+  else{
+    $('.error').removeClass('showit');
+    $('.error').addClass('hideit');
   }
 
+  console.log(isValid);
+
   return isValid;
+}
+
+function is_numeric(str){
+  //taken from:  https://stackoverflow.com/questions/2811031/decimal-or-numeric-values-in-regular-expression-validation
+  return /^[1-9]\d*(.\d+)?$/.test(str);
 }
 
 function displayMatchingVersions() {
